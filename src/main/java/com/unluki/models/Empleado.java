@@ -1,17 +1,18 @@
 package com.unluki.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
+
 
 @Entity
 @Table(
         name = "empleado",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = "id_empleado")
+                @UniqueConstraint(columnNames = "id")
         }
 )
 public class Empleado {
         @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "id_empleado")
         private int id_empleado;
 
@@ -52,6 +53,6 @@ public class Empleado {
 
         @Override
         public String toString() {
-                return "id_empleado=" + id_empleado + " nombre=" + nombre + " id_sucursal=" + sucursal;
+                return "id_empleado=" + id_empleado + " nombre=" + nombre + " id_sucursal=" + sucursal.getId_sucursal();
         }
 }
