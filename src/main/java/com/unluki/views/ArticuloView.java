@@ -6,6 +6,8 @@ import com.unluki.models.Articulo;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.unluki.utils.InputUtil.leerEntero;
+
 public class ArticuloView {
     private final Scanner scanner;
     private final ArticuloController articuloController;
@@ -26,7 +28,7 @@ public class ArticuloView {
             System.out.println("0. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
 
-            opcion = leerEntero();
+            opcion = leerEntero(scanner);
 
             switch (opcion) {
                 case 1:
@@ -61,7 +63,7 @@ public class ArticuloView {
     public void eliminarArticulo() {
         System.out.println("\n--- Eliminar Articulo ---");
         System.out.println("ID del articulo: ");
-        int idArticulo = leerEntero();
+        int idArticulo = leerEntero(scanner);
         String result = articuloController.eliminarArticulo(idArticulo);
         System.out.println(result);
     }
@@ -69,7 +71,7 @@ public class ArticuloView {
     public void modificarArticulo() {
         System.out.println("\n--- Modificar Articulo ---");
         System.out.println("ID del articulo: ");
-        int idArticulo = leerEntero();
+        int idArticulo = leerEntero(scanner);
         System.out.println("!!SI NO DESEA MODIFICAR UN CAMPO, SOLO PRESIONE ENTER!!");
         System.out.println("Descripcion: ");
         String descripcion = scanner.nextLine();
@@ -81,18 +83,11 @@ public class ArticuloView {
         System.out.println("\n--- Buscar Articulo ---");
         System.out.println("!!SI DESEA VER TODOS LOS ARTICULOS, SOLO PRESIONE ENTER!!");
         System.out.println("ID del articulo: ");
-        int idArticulo = leerEntero();
+        int idArticulo = leerEntero(scanner);
         List<Articulo> result = articuloController.consultarArticulo(idArticulo);
         for ( Articulo articulo : result ) {
             System.out.printf(articulo.toString() + "\n");
         }
     }
 
-    private int leerEntero() {
-        try {
-            return Integer.parseInt(scanner.nextLine().trim());
-        } catch ( NumberFormatException e ) {
-            return -1;
-        }
-    }
 }

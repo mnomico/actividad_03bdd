@@ -33,7 +33,7 @@ public class SucursalArticuloController {
             session.merge(articulo);
 
             session.getTransaction().commit();
-            return "Artículo asignado a sucursal correctamente.";
+            return "Artículo asignado a sucursal con id=(" + idSucursal + "," + idArticulo + ")";
         } catch ( Exception e ) {
             e.printStackTrace();
         }

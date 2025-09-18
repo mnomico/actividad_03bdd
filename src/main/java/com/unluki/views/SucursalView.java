@@ -6,6 +6,8 @@ import com.unluki.models.Sucursal;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.unluki.utils.InputUtil.leerEntero;
+
 public class SucursalView {
     private final Scanner scanner;
     private final SucursalController sucursalController;
@@ -26,7 +28,7 @@ public class SucursalView {
             System.out.println("0. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
 
-            opcion = leerEntero();
+            opcion = leerEntero(scanner);
 
             switch (opcion) {
                 case 1:
@@ -63,7 +65,7 @@ public class SucursalView {
     public void eliminarSucursal() {
         System.out.println("\n--- Eliminar Sucursal ---");
         System.out.println("ID del sucursal: ");
-        int id_sucursal = leerEntero();
+        int id_sucursal = leerEntero(scanner);
         String result = sucursalController.eliminarSucursal(id_sucursal);
         System.out.println(result);
     }
@@ -71,7 +73,7 @@ public class SucursalView {
     public void modificarSucursal() {
         System.out.println("\n--- Modificar Sucursal ---");
         System.out.println("ID del sucursal: ");
-        int id_sucursal = leerEntero();
+        int id_sucursal = leerEntero(scanner);
         System.out.println("!!SI NO DESEA MODIFICAR UN CAMPO, SOLO PRESIONE ENTER!!");
         System.out.println("Descripción: ");
         String descripcion = scanner.nextLine();
@@ -85,18 +87,11 @@ public class SucursalView {
         System.out.println("\n--- Buscar Sucursal ---");
         System.out.println("!!SI DESEA VER TODOS LOS SUCURSALS, SOLO PRESIONE ENTER!!");
         System.out.println("ID del sucursal: ");
-        int id_sucursal = leerEntero();
+        int id_sucursal = leerEntero(scanner);
         List<Sucursal> result = sucursalController.consultarSucursal(id_sucursal);
         for ( Sucursal sucursal : result ) {
             System.out.printf("%s%n", sucursal.toString());
         }
     }
 
-    private int leerEntero() {
-        try {
-            return Integer.parseInt(scanner.nextLine().trim());
-        } catch ( NumberFormatException e ) {
-            return -1;
-        }
-    }
 }

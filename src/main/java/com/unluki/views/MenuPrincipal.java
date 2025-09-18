@@ -2,6 +2,8 @@ package com.unluki.views;
 
 import java.util.Scanner;
 
+import static com.unluki.utils.InputUtil.leerEntero;
+
 public class MenuPrincipal {
     private final Scanner scanner;
     private final ArticuloView articuloView;
@@ -28,7 +30,7 @@ public class MenuPrincipal {
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
 
-            opcion = leerEntero();
+            opcion = leerEntero(scanner);
             switch (opcion) {
                 case 1:
                     articuloView.mostrarMenu();
@@ -53,11 +55,4 @@ public class MenuPrincipal {
         scanner.close();
     }
 
-    private int leerEntero() {
-        try {
-            return Integer.parseInt(scanner.nextLine().trim());
-        } catch (NumberFormatException e) {
-            return -1;
-        }
-    }
 }

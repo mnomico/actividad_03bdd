@@ -16,14 +16,14 @@ public class SucursalArticulo {
     @EmbeddedId
     private SucursalArticuloId id;
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("idSucursal")
-    @JoinColumn(name = "id_sucursal")
+    @JoinColumn(name = "id_sucursal", referencedColumnName = "id_sucursal")
     private Sucursal sucursal;
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("idArticulo")
-    @JoinColumn(name = "id_articulo")
+    @JoinColumn(name = "id_articulo", referencedColumnName = "id_articulo")
     private Articulo articulo;
     
     @Column(name = "precio", nullable = false)

@@ -18,7 +18,7 @@ public class ArticuloController {
             session.beginTransaction();
             session.persist(articulo);
             session.getTransaction().commit();
-            return ("Articulo creado.");
+            return ("Articulo creado con id=" + articulo.getIdArticulo());
         } catch ( Exception e ) {
             e.printStackTrace();
         }

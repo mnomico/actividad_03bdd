@@ -17,7 +17,7 @@ public class SucursalController {
             session.beginTransaction();
             session.persist(sucursal);
             session.getTransaction().commit();
-            return "Sucursal creada.";
+            return "Sucursal creada con id=" + sucursal.getIdSucursal();
         } catch ( Exception e ) {
             e.printStackTrace();
         }

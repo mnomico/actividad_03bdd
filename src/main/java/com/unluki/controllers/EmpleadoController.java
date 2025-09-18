@@ -23,7 +23,7 @@ public class EmpleadoController {
             session.persist(empleado);
 
             session.getTransaction().commit();
-            return "Empleado creado.";
+            return "Empleado creado con id=" + empleado.getIdEmpleado();
         } catch ( Exception e ) {
             e.printStackTrace();
         }
