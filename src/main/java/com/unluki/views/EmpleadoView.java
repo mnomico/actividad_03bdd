@@ -47,7 +47,7 @@ public class EmpleadoView {
                 default:
                     System.out.println("Opción inválida");
             }
-        } while (opcion != 0);
+        } while ( opcion != 0 );
     }
 
     public void agregarEmpleado() {
@@ -55,29 +55,29 @@ public class EmpleadoView {
         System.out.println("Nombre: ");
         String nombre = scanner.nextLine();
         System.out.println("id_sucursal: ");
-        int id_sucursal = leerEntero();
-        String result = empleadoController.createEmpleado(0, nombre, id_sucursal);
+        int idSucursal = leerEntero();
+        String result = empleadoController.createEmpleado(nombre, idSucursal);
         System.out.println(result);
     }
 
     public void eliminarEmpleado() {
         System.out.println("\n--- Eliminar Empleado ---");
         System.out.println("ID del Empleado: ");
-        int id_empleado = leerEntero();
-        String result = empleadoController.eliminarEmpleado(id_empleado);
+        int idEmpleado = leerEntero();
+        String result = empleadoController.eliminarEmpleado(idEmpleado);
         System.out.println(result);
     }
 
     public void modificarEmpleado() {
         System.out.println("\n--- Modificar Empleado ---");
         System.out.println("ID del Empleado: ");
-        int id_empleado = leerEntero();
+        int idEmpleado = leerEntero();
         System.out.println("!!SI NO DESEA MODIFICAR UN CAMPO, SOLO PRESIONE ENTER!!");
         System.out.println("Nombre: ");
         String nombre = scanner.nextLine();
         System.out.println("id_sucursal: ");
-        int id_sucursal = leerEntero();
-        String result = empleadoController.modificarEmpleado(id_empleado, nombre, id_sucursal);
+        int idSucursal = leerEntero();
+        String result = empleadoController.modificarEmpleado(idEmpleado, nombre, idSucursal);
         System.out.println(result);
     }
 
@@ -85,17 +85,17 @@ public class EmpleadoView {
         System.out.println("\n--- Buscar Empleado ---");
         System.out.println("!!SI DESEA VER TODOS LOS EMPLEADOS, SOLO PRESIONE ENTER!!");
         System.out.println("ID del Empleado: ");
-        int id_empleado = leerEntero();
-        List<Empleado> result = empleadoController.consultarEmpleado(id_empleado);
-        for (Empleado empleado : result) {
-            System.out.printf(empleado.toString() + "\n");
+        int idEmpleado = leerEntero();
+        List<Empleado> result = empleadoController.consultarEmpleado(idEmpleado);
+        for ( Empleado empleado : result ) {
+            System.out.printf("%s%n", empleado.toString());
         }
     }
 
     private int leerEntero() {
         try {
             return Integer.parseInt(scanner.nextLine().trim());
-        } catch (NumberFormatException e) {
+        } catch ( NumberFormatException e ) {
             return -1;
         }
     }

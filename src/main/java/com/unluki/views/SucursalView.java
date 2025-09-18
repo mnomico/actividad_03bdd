@@ -47,7 +47,7 @@ public class SucursalView {
                 default:
                     System.out.println("Opción inválida");
             }
-        } while (opcion != 0);
+        } while ( opcion != 0 );
     }
 
     public void agregarSucursal() {
@@ -56,7 +56,7 @@ public class SucursalView {
         String descripcion = scanner.nextLine();
         System.out.println("Direccion: ");
         String direccion = scanner.nextLine();
-        String result = sucursalController.createSucursal(0, descripcion, direccion);
+        String result = sucursalController.createSucursal(descripcion, direccion);
         System.out.println(result);
     }
 
@@ -87,15 +87,15 @@ public class SucursalView {
         System.out.println("ID del sucursal: ");
         int id_sucursal = leerEntero();
         List<Sucursal> result = sucursalController.consultarSucursal(id_sucursal);
-        for (Sucursal sucursal : result) {
-            System.out.printf(sucursal.toString() + "\n");
+        for ( Sucursal sucursal : result ) {
+            System.out.printf("%s%n", sucursal.toString());
         }
     }
 
     private int leerEntero() {
         try {
             return Integer.parseInt(scanner.nextLine().trim());
-        } catch (NumberFormatException e) {
+        } catch ( NumberFormatException e ) {
             return -1;
         }
     }

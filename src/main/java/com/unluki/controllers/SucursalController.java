@@ -10,49 +10,49 @@ import java.util.List;
 
 public class SucursalController {
 
-    public String createSucursal(int id_sucursal, String descripcion, String direccion) {
+    public String createSucursal(String descripcion, String direccion) {
 
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Sucursal sucursal = new Sucursal(id_sucursal, descripcion, direccion);
+        try ( Session session = HibernateUtil.getSessionFactory().openSession() ) {
+            Sucursal sucursal = new Sucursal(descripcion, direccion);
             session.beginTransaction();
             session.persist(sucursal);
             session.getTransaction().commit();
             return "Sucursal creada.";
-        } catch (Exception e) {
+        } catch ( Exception e ) {
             e.printStackTrace();
         }
 
         return "Error al intentar crear la sucursal.";
     }
 
-    public String eliminarSucursal(int id_sucursal) {
+    public String eliminarSucursal(int idSucursal) {
 
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try ( Session session = HibernateUtil.getSessionFactory().openSession() ) {
             session.beginTransaction();
-            Sucursal sucursal = session.find(Sucursal.class, id_sucursal);
-            if (sucursal != null) {
+            Sucursal sucursal = session.find(Sucursal.class, idSucursal);
+            if ( sucursal != null ) {
                 session.remove(sucursal);
                 session.getTransaction().commit();
                 return "Sucursal eliminada.";
             }
             return "No se encontró la sucursal.";
-        } catch (Exception e) {
+        } catch ( Exception e ) {
             e.printStackTrace();
         }
 
         return "Error al intentar eliminar la sucursal.";
     }
 
-    public String modificarSucursal(int id_sucursal, String descripcion, String direccion) {
+    public String modificarSucursal(int idSucursal, String descripcion, String direccion) {
 
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try ( Session session = HibernateUtil.getSessionFactory().openSession() ) {
             session.beginTransaction();
-            Sucursal sucursal = session.find(Sucursal.class, id_sucursal);
-            if (sucursal != null) {
-                if (!descripcion.isEmpty()) {
+            Sucursal sucursal = session.find(Sucursal.class, idSucursal);
+            if ( sucursal != null ) {
+                if ( descripcion != null && !descripcion.isEmpty() ) {
                     sucursal.setDescripcion(descripcion);
                 }
-                if(!direccion.isEmpty()) {
+                if ( direccion != null && !direccion.isEmpty() ) {
                     sucursal.setDireccion(direccion);
                 }
                 session.merge(sucursal);
@@ -60,31 +60,31 @@ public class SucursalController {
                 return "Sucursal modificada.";
             }
             return "No se encontró la sucursal.";
-        } catch (Exception e) {
+        } catch ( Exception e ) {
             e.printStackTrace();
         }
 
         return "Error al intentar modificar la sucursal.";
     }
 
-    public List<Sucursal> consultarSucursal(int id_sucursal) {
+    public List<Sucursal> consultarSucursal(int idSucursal) {
 
         List<Sucursal> sucursales = new ArrayList<>();
 
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try ( Session session = HibernateUtil.getSessionFactory().openSession() ) {
             session.beginTransaction();
             NativeQuery<Sucursal> query;
-            if (id_sucursal == -1) {
+            if ( idSucursal == -1 ) {
                 String sql = "SELECT * FROM sucursal";
                 query = session.createNativeQuery(sql, Sucursal.class);
             } else {
                 String sql = "SELECT * FROM sucursal WHERE id_sucursal = :id_suc";
                 query = session.createNativeQuery(sql, Sucursal.class);
-                query.setParameter("id_suc", id_sucursal);
+                query.setParameter("id_suc", idSucursal);
             }
             sucursales = query.getResultList();
             session.getTransaction().commit();
-        } catch (Exception e) {
+        } catch ( Exception e ) {
             e.printStackTrace();
         }
 

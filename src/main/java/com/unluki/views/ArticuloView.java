@@ -47,37 +47,33 @@ public class ArticuloView {
                 default:
                     System.out.println("Opción inválida");
             }
-        } while (opcion != 0);
+        } while ( opcion != 0 );
     }
 
     public void agregarArticulo() {
         System.out.println("\n--- Agregar Articulo ---");
         System.out.println("Descripcion: ");
         String descripcion = scanner.nextLine();
-        System.out.println("Stock: ");
-        int stock = leerEntero();
-        String result = articuloController.createArticulo(0, descripcion, stock);
+        String result = articuloController.createArticulo(descripcion);
         System.out.println(result);
     }
 
     public void eliminarArticulo() {
         System.out.println("\n--- Eliminar Articulo ---");
         System.out.println("ID del articulo: ");
-        int id_articulo = leerEntero();
-        String result = articuloController.eliminarArticulo(id_articulo);
+        int idArticulo = leerEntero();
+        String result = articuloController.eliminarArticulo(idArticulo);
         System.out.println(result);
     }
 
     public void modificarArticulo() {
         System.out.println("\n--- Modificar Articulo ---");
         System.out.println("ID del articulo: ");
-        int id_articulo = leerEntero();
+        int idArticulo = leerEntero();
         System.out.println("!!SI NO DESEA MODIFICAR UN CAMPO, SOLO PRESIONE ENTER!!");
         System.out.println("Descripcion: ");
         String descripcion = scanner.nextLine();
-        System.out.println("Stock: ");
-        int stock = leerEntero();
-        String result = articuloController.modificarArticulo(id_articulo, descripcion, stock);
+        String result = articuloController.modificarArticulo(idArticulo, descripcion);
         System.out.println(result);
     }
 
@@ -85,9 +81,9 @@ public class ArticuloView {
         System.out.println("\n--- Buscar Articulo ---");
         System.out.println("!!SI DESEA VER TODOS LOS ARTICULOS, SOLO PRESIONE ENTER!!");
         System.out.println("ID del articulo: ");
-        int id_articulo = leerEntero();
-        List<Articulo> result = articuloController.consultarArticulo(id_articulo);
-        for (Articulo articulo : result) {
+        int idArticulo = leerEntero();
+        List<Articulo> result = articuloController.consultarArticulo(idArticulo);
+        for ( Articulo articulo : result ) {
             System.out.printf(articulo.toString() + "\n");
         }
     }
@@ -95,7 +91,7 @@ public class ArticuloView {
     private int leerEntero() {
         try {
             return Integer.parseInt(scanner.nextLine().trim());
-        } catch (NumberFormatException e) {
+        } catch ( NumberFormatException e ) {
             return -1;
         }
     }

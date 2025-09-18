@@ -1,63 +1,58 @@
 package com.unluki.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(
         name = "sucursal",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = "Id")
+                @UniqueConstraint(columnNames = "id_sucursal")
         }
 )
+@Getter
+@NoArgsConstructor
 public class Sucursal {
-
-    private static final int stringLength = 40;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_sucursal")
-    private int id_sucursal;
+    private int idSucursal;
 
-    @Column(name = "descripcion", length = stringLength)
+    @Setter
+    @Column(name = "descripcion", length = 40)
     private String descripcion;
 
-    @Column(name = "direccion", length = stringLength)
+    @Setter
+    @Column(name = "direccion", length = 40, nullable = false)
     private String direccion;
 
-    public Sucursal() {}
+    @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<SucursalArticulo> sucursalArticulos = new HashSet<>();
 
-    public Sucursal(int id_sucursal, String descripcion, String direccion) {
-        this.id_sucursal = id_sucursal;
+    @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Empleado> empleados = new HashSet<>();
+
+    public Sucursal(int idSucursal, String descripcion, String direccion) {
+        this.idSucursal = idSucursal;
         this.descripcion = descripcion;
         this.direccion = direccion;
     }
 
-    public int getId_sucursal() {
-        return this.id_sucursal;
-    }
-
-    public String getDescripcion() {
-        return this.descripcion;
-    }
-
-    public String getDireccion() {
-        return this.direccion;
-    }
-
-    public void setId_sucursal(int id_sucursal) {
-        this.id_sucursal = id_sucursal;
-    }
-
-    public void setDescripcion(String descripcion) {
+    public Sucursal(String descripcion, String direccion) {
         this.descripcion = descripcion;
-    }
-
-    public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
 
     @Override
     public String toString() {
-        return "id_sucursal=" + id_sucursal + " descripcion=" + descripcion + " direccion=" + direccion;
+        return "Sucursal [id_sucursal=" + idSucursal +
+                ", descripcion=" + descripcion +
+                ", direccion=" + direccion + "]";
     }
 }

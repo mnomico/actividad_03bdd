@@ -1,7 +1,5 @@
 package com.unluki.views;
 
-import com.unluki.models.Empleado;
-
 import java.util.Scanner;
 
 public class MenuPrincipal {
@@ -9,12 +7,14 @@ public class MenuPrincipal {
     private final ArticuloView articuloView;
     private final SucursalView sucursalView;
     private final EmpleadoView empleadoView;
+    private final SucursalArticuloView sucursalArticuloView;
 
     public MenuPrincipal() {
         this.scanner = new Scanner(System.in);
         this.articuloView = new ArticuloView();
         this.sucursalView = new SucursalView();
         this.empleadoView = new EmpleadoView();
+        this.sucursalArticuloView = new SucursalArticuloView(scanner);
     }
 
     public void mostrarMenu() {
@@ -24,6 +24,7 @@ public class MenuPrincipal {
             System.out.println("1. Articulos - ABM y Consulta");
             System.out.println("2. Sucursales - ABM y Consulta");
             System.out.println("3. Empleados - ABM y Consulta");
+            System.out.println("4. Gestión Sucursal-Artículo");
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
 
@@ -37,6 +38,9 @@ public class MenuPrincipal {
                     break;
                 case 3:
                     empleadoView.mostrarMenu();
+                    break;
+                case 4:
+                    sucursalArticuloView.mostrarMenu();
                     break;
                 case 0:
                     System.out.println("Saliendo...");

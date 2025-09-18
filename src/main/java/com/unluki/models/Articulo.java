@@ -1,64 +1,54 @@
 package com.unluki.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
 @Table(
         name = "articulo",
         uniqueConstraints = {
-            @UniqueConstraint(columnNames = "Id")
+                @UniqueConstraint(columnNames = "id_articulo")
         }
 )
+@Getter
+@NoArgsConstructor
 public class Articulo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_articulo")
-    private int id_articulo;
+    private int idArticulo;
 
-    @Column(name = "descripcion", length = 200)
+    @Column(name = "descripcion", length = 100)
+    @Setter
     private String descripcion;
 
-    @Min(0)
-    @Column(name = "stock", nullable = false)
-    private int stock;
+    @Column(name = "stock_total")
+    private Integer stockTotal;
 
-    public Articulo() {}
+    @OneToMany(mappedBy = "articulo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<SucursalArticulo> sucursalArticulos = new HashSet<>();
 
-    public Articulo(int id_articulo, String descripcion, int stock) {
-        this.id_articulo = id_articulo;
-        this.descripcion = descripcion;
-        this.stock = stock;
-    }
-
-    public int getId_articulo() {
-        return id_articulo;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public int getStock() {
-        return stock;
-    }
-
-    public void setId_articulo(int id_articulo) {
-        this.id_articulo = id_articulo;
-    }
-
-    public void setDescripcion(String descripcion) {
+    public Articulo(String descripcion) {
         this.descripcion = descripcion;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void calcularStockTotal() {
+        this.stockTotal = sucursalArticulos.stream()
+                .mapToInt(SucursalArticulo::getStock)
+                .sum();
     }
 
     @Override
     public String toString() {
-        return "articulo [id_articulo=" + id_articulo +", descripcion=" + descripcion + ", stock=" + stock + "]";
+        return "Artículo [id_articulo=" + idArticulo +
+                ", descripcion=" + descripcion +
+                ", stock_total=" + stockTotal + "]";
     }
 }
