@@ -29,8 +29,8 @@ public class Articulo {
     @Setter
     private String descripcion;
 
-    @Column(name = "stock_total")
-    private Integer stockTotal = 0;
+    @Column(name = "stock_total", insertable = false, updatable = false)
+    private Integer stockTotal;
 
     @OneToMany(mappedBy = "articulo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<SucursalArticulo> sucursalArticulos = new HashSet<>();

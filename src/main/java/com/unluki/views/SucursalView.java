@@ -85,12 +85,26 @@ public class SucursalView {
 
     public void buscarSucursal() {
         System.out.println("\n--- Buscar Sucursal ---");
-        System.out.println("!!SI DESEA VER TODOS LOS SUCURSALS, SOLO PRESIONE ENTER!!");
+        System.out.println("!!SI DESEA VER TODAS LAS SUCURSALES, SOLO PRESIONE ENTER!!");
         System.out.println("ID del sucursal: ");
         int id_sucursal = leerEntero(scanner);
         List<Sucursal> result = sucursalController.consultarSucursal(id_sucursal);
-        for ( Sucursal sucursal : result ) {
-            System.out.printf("%s%n", sucursal.toString());
+        
+        if ( result.isEmpty() ) {
+            if ( id_sucursal == -1 ) {
+                System.out.println("No hay sucursales registradas.");
+            } else {
+                System.out.println("No se encontró la sucursal con ID: " + id_sucursal);
+            }
+        } else {
+            if ( id_sucursal == -1 ) {
+                System.out.println("\n--- Todas las Sucursales ---");
+            } else {
+                System.out.println("\n--- Sucursal Encontrada ---");
+            }
+            for ( Sucursal sucursal : result ) {
+                System.out.println(sucursal.toString());
+            }
         }
     }
 

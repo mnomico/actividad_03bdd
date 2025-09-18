@@ -89,8 +89,22 @@ public class EmpleadoView {
         System.out.println("ID del Empleado: ");
         int idEmpleado = leerEntero(scanner);
         List<Empleado> result = empleadoController.consultarEmpleado(idEmpleado);
-        for ( Empleado empleado : result ) {
-            System.out.printf("%s%n", empleado.toString());
+        
+        if ( result.isEmpty() ) {
+            if ( idEmpleado == -1 ) {
+                System.out.println("No hay empleados registrados.");
+            } else {
+                System.out.println("No se encontró el empleado con ID: " + idEmpleado);
+            }
+        } else {
+            if ( idEmpleado == -1 ) {
+                System.out.println("\n--- Todos los Empleados ---");
+            } else {
+                System.out.println("\n--- Empleado Encontrado ---");
+            }
+            for ( Empleado empleado : result ) {
+                System.out.println(empleado.toString());
+            }
         }
     }
 

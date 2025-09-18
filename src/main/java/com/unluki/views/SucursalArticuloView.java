@@ -1,6 +1,7 @@
 package com.unluki.views;
 
 import com.unluki.controllers.SucursalArticuloController;
+import com.unluki.models.Articulo;
 import com.unluki.models.SucursalArticulo;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class SucursalArticuloView {
             System.out.println("3. Eliminar artículo de sucursal");
             System.out.println("4. Ver artículos por sucursal");
             System.out.println("5. Ver sucursales por artículo");
+            System.out.println("6. Consultar artículos");
             System.out.println("0. Volver al menú principal");
             System.out.print("Seleccione una opción: ");
             opcion = leerEntero(scanner);
@@ -36,6 +38,7 @@ public class SucursalArticuloView {
                 case 3 -> eliminarArticuloDeSucursal();
                 case 4 -> consultarArticulosPorSucursal();
                 case 5 -> consultarSucursalesPorArticulo();
+                case 6 -> consultarArticulos();
                 case 0 -> System.out.println("Volviendo al menú principal...");
                 default -> System.out.println("Opción inválida. Intente nuevamente.");
             }
@@ -86,40 +89,70 @@ public class SucursalArticuloView {
 
     public void consultarArticulosPorSucursal() {
         System.out.println("\n--- Artículos por Sucursal ---");
+        System.out.println("!!SI DESEA VER TODOS LOS ARTICULOS POR SUCURSAL, SOLO PRESIONE ENTER!!");
         System.out.println("ID de la sucursal: ");
         int idSucursal = leerEntero(scanner);
 
         List<SucursalArticulo> sucursalArticulos = sucursalArticuloController.consultarArticulosPorSucursal(idSucursal);
 
         if ( sucursalArticulos.isEmpty() ) {
-            System.out.println("No se encontraron artículos para esta sucursal.");
+            if ( idSucursal == -1 ) {
+                System.out.println("No hay relaciones sucursal-artículo registradas.");
+            } else {
+                System.out.println("No se encontraron artículos para esta sucursal.");
+            }
         } else {
-            System.out.println("\n--- Artículos en la Sucursal ---");
+            if ( idSucursal == -1 ) {
+                System.out.println("\n--- Todas las Relaciones Sucursal-Artículo ---");
+            } else {
+                System.out.println("\n--- Artículos en la Sucursal ---");
+            }
             for ( SucursalArticulo sa : sucursalArticulos ) {
-                System.out.println("Artículo ID: " + sa.getArticulo().getIdArticulo() +
-                        " | Descripción: " + sa.getArticulo().getDescripcion() +
-                        " | Precio: $" + sa.getPrecio() +
-                        " | Stock: " + sa.getStock());
+                System.out.println(sa.toString());
             }
         }
     }
 
     public void consultarSucursalesPorArticulo() {
         System.out.println("\n--- Sucursales por Artículo ---");
+        System.out.println("!!SI DESEA VER TODAS LAS SUCURSALES Y SUS ARTICULOS, SOLO PRESIONE ENTER!!");
         System.out.println("ID del artículo: ");
         int idArticulo = leerEntero(scanner);
 
         List<SucursalArticulo> sucursalArticulos = sucursalArticuloController.consultarSucursalesPorArticulo(idArticulo);
 
         if ( sucursalArticulos.isEmpty() ) {
-            System.out.println("No se encontraron sucursales para este artículo.");
+            if ( idArticulo == -1 ) {
+                System.out.println("No hay relaciones sucursal-artículo registradas.");
+            } else {
+                System.out.println("No se encontraron sucursales para este artículo.");
+            }
         } else {
-            System.out.println("\n--- Sucursales con el Artículo ---");
+            if ( idArticulo == -1 ) {
+                System.out.println("\n--- Todas las Relaciones Sucursal-Artículo ---");
+            } else {
+                System.out.println("\n--- Sucursales con el Artículo ---");
+            }
             for ( SucursalArticulo sa : sucursalArticulos ) {
-                System.out.println("Sucursal ID: " + sa.getSucursal().getIdSucursal() +
-                        " | Descripción: " + sa.getSucursal().getDescripcion() +
-                        " | Precio: $" + sa.getPrecio() +
-                        " | Stock: " + sa.getStock());
+                System.out.println(sa.toString());
+            }
+        }
+    }
+
+    public void consultarArticulos() {
+        System.out.println("\n--- Consultar Artículos ---");
+        System.out.println("!!SI DESEA VER TODOS LOS ARTICULOS, SOLO PRESIONE ENTER!!");
+        System.out.println("ID del artículo: ");
+        int idArticulo = leerEntero(scanner);
+
+        List<Articulo> articulos = sucursalArticuloController.consultarArticulos(idArticulo);
+
+        if ( articulos.isEmpty() ) {
+            System.out.println("No se encontraron artículos.");
+        } else {
+            System.out.println("\n--- Lista de Artículos ---");
+            for ( Articulo articulo : articulos ) {
+                System.out.println(articulo.toString());
             }
         }
     }

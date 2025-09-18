@@ -85,8 +85,22 @@ public class ArticuloView {
         System.out.println("ID del articulo: ");
         int idArticulo = leerEntero(scanner);
         List<Articulo> result = articuloController.consultarArticulo(idArticulo);
-        for ( Articulo articulo : result ) {
-            System.out.printf(articulo.toString() + "\n");
+        
+        if ( result.isEmpty() ) {
+            if ( idArticulo == -1 ) {
+                System.out.println("No hay artículos registrados.");
+            } else {
+                System.out.println("No se encontró el artículo con ID: " + idArticulo);
+            }
+        } else {
+            if ( idArticulo == -1 ) {
+                System.out.println("\n--- Todos los Artículos ---");
+            } else {
+                System.out.println("\n--- Artículo Encontrado ---");
+            }
+            for ( Articulo articulo : result ) {
+                System.out.println(articulo.toString());
+            }
         }
     }
 

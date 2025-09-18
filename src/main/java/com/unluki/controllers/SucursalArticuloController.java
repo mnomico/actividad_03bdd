@@ -92,9 +92,15 @@ public class SucursalArticuloController {
 
         try ( Session session = HibernateUtil.getSessionFactory().openSession() ) {
             session.beginTransaction();
-            String sql = "SELECT * FROM s_a WHERE id_sucursal = :idSucursal";
-            NativeQuery<SucursalArticulo> query = session.createNativeQuery(sql, SucursalArticulo.class);
-            query.setParameter("idSucursal", idSucursal);
+            NativeQuery<SucursalArticulo> query;
+            if ( idSucursal == -1 ) {
+                String sql = "SELECT * FROM s_a";
+                query = session.createNativeQuery(sql, SucursalArticulo.class);
+            } else {
+                String sql = "SELECT * FROM s_a WHERE id_sucursal = :idSucursal";
+                query = session.createNativeQuery(sql, SucursalArticulo.class);
+                query.setParameter("idSucursal", idSucursal);
+            }
             sucursalArticulos = query.getResultList();
             session.getTransaction().commit();
         } catch ( Exception e ) {
@@ -109,9 +115,15 @@ public class SucursalArticuloController {
 
         try ( Session session = HibernateUtil.getSessionFactory().openSession() ) {
             session.beginTransaction();
-            String sql = "SELECT * FROM s_a WHERE id_articulo = :idArticulo";
-            NativeQuery<SucursalArticulo> query = session.createNativeQuery(sql, SucursalArticulo.class);
-            query.setParameter("idArticulo", idArticulo);
+            NativeQuery<SucursalArticulo> query;
+            if ( idArticulo == -1 ) {
+                String sql = "SELECT * FROM s_a";
+                query = session.createNativeQuery(sql, SucursalArticulo.class);
+            } else {
+                String sql = "SELECT * FROM s_a WHERE id_articulo = :idArticulo";
+                query = session.createNativeQuery(sql, SucursalArticulo.class);
+                query.setParameter("idArticulo", idArticulo);
+            }
             sucursalArticulos = query.getResultList();
             session.getTransaction().commit();
         } catch ( Exception e ) {
@@ -119,5 +131,28 @@ public class SucursalArticuloController {
         }
 
         return sucursalArticulos;
+    }
+
+    public List<Articulo> consultarArticulos(int idArticulo) {
+        List<Articulo> articulos = new ArrayList<>();
+
+        try ( Session session = HibernateUtil.getSessionFactory().openSession() ) {
+            session.beginTransaction();
+            NativeQuery<Articulo> query;
+            if ( idArticulo == -1 ) {
+                String sql = "SELECT * FROM articulo";
+                query = session.createNativeQuery(sql, Articulo.class);
+            } else {
+                String sql = "SELECT * FROM articulo WHERE id_articulo = :id_articulo";
+                query = session.createNativeQuery(sql, Articulo.class);
+                query.setParameter("id_articulo", idArticulo);
+            }
+            articulos = query.getResultList();
+            session.getTransaction().commit();
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
+
+        return articulos;
     }
 }
