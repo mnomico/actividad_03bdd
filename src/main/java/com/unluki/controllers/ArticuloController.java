@@ -53,8 +53,6 @@ public class ArticuloController {
                 if ( descripcion != null && !descripcion.isEmpty() ) {
                     articulo.setDescripcion(descripcion);
                 }
-                // Recalcular el stock total
-                articulo.calcularStockTotal();
                 session.merge(articulo);
                 session.getTransaction().commit();
                 return ("Articulo modificado.");

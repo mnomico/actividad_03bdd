@@ -29,7 +29,7 @@ public class Articulo {
     @Setter
     private String descripcion;
 
-    @Column(name = "stock_total")
+    @Column(name = "stock_total", insertable = false, updatable = false) // read-only
     private Integer stockTotal;
 
     @OneToMany(mappedBy = "articulo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -37,12 +37,6 @@ public class Articulo {
 
     public Articulo(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public void calcularStockTotal() {
-        this.stockTotal = sucursalArticulos.stream()
-                .mapToInt(SucursalArticulo::getStock)
-                .sum();
     }
 
     @Override

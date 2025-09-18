@@ -30,8 +30,6 @@ public class SucursalArticuloController {
             SucursalArticulo sucursalArticulo = new SucursalArticulo(sucursal, articulo, precio, stock);
             session.persist(sucursalArticulo);
 
-            // Actualizar el stock total del artículo
-            articulo.calcularStockTotal();
             session.merge(articulo);
 
             session.getTransaction().commit();
@@ -53,10 +51,6 @@ public class SucursalArticuloController {
 
                 if ( stock != -1 ) {
                     sucursalArticulo.setStock(stock);
-                    // Actualizar el stock total del artículo
-                    Articulo articulo = sucursalArticulo.getArticulo();
-                    articulo.calcularStockTotal();
-                    session.merge(articulo);
                 }
                 if ( precio != -1 ) {
                     sucursalArticulo.setPrecio(precio);
@@ -82,11 +76,6 @@ public class SucursalArticuloController {
 
             if ( sucursalArticulo != null ) {
                 session.remove(sucursalArticulo);
-
-                // Actualizar el stock total del artículo
-                Articulo articulo = sucursalArticulo.getArticulo();
-                articulo.calcularStockTotal();
-                session.merge(articulo);
 
                 session.getTransaction().commit();
                 return "Artículo eliminado de la sucursal correctamente.";
