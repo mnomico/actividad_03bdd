@@ -7,9 +7,13 @@ public class InputUtil {
     public static int leerEntero(Scanner scanner) {
         while (true) {
             try {
-                return Integer.parseInt(scanner.nextLine().trim());
+                String input = scanner.nextLine().trim();
+                if (input.isEmpty()) {
+                    return -1;
+                }
+                return Integer.parseInt(input);
             } catch ( NumberFormatException e ) {
-                System.out.println("Por favor, ingrese un número válido.");
+                System.out.println("Por favor, ingrese un número válido o presione Enter para ver todo.");
             }
         }
     }
