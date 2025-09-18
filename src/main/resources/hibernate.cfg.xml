@@ -13,7 +13,7 @@
         <property name="hibernate.connection.pool_size">5</property>
 
         <!-- Hibernate behavior -->
-        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
         <property name="hibernate.show_sql">false</property>
         <property name="hibernate.format_sql">true</property>
         <property name="hibernate.highlight_sql">true</property>
