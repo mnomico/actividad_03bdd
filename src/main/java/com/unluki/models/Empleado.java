@@ -37,6 +37,8 @@ public class Empleado {
 
     @Override
     public String toString() {
-        return "Empleado [id_empleado=" + idEmpleado + " nombre=" + nombre + " id_sucursal=" + sucursal.getIdSucursal() + "]";
+        return "Empleado [id_empleado=" + idEmpleado +
+                " nombre=" + nombre +
+                " id_sucursal=" + sucursal.getIdSucursal() + "]";
     }
 }

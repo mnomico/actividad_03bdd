@@ -32,17 +32,11 @@ public class Sucursal {
     @Column(name = "direccion", length = 40, nullable = false)
     private String direccion;
 
-    @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL)
     private Set<SucursalArticulo> sucursalArticulos = new HashSet<>();
 
-    @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL)
     private Set<Empleado> empleados = new HashSet<>();
-
-    public Sucursal(int idSucursal, String descripcion, String direccion) {
-        this.idSucursal = idSucursal;
-        this.descripcion = descripcion;
-        this.direccion = direccion;
-    }
 
     public Sucursal(String descripcion, String direccion) {
         this.descripcion = descripcion;

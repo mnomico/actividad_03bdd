@@ -32,7 +32,7 @@ public class Articulo {
     @Column(name = "stock_total", insertable = false, updatable = false)
     private Integer stockTotal;
 
-    @OneToMany(mappedBy = "articulo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "articulo", cascade = CascadeType.ALL)
     private Set<SucursalArticulo> sucursalArticulos = new HashSet<>();
 
     public Articulo(String descripcion) {
